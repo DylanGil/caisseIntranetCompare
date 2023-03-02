@@ -1,0 +1,1 @@
+afficher s'il y a un numéro qui n'a pas sa paire dans l'autre colonne
