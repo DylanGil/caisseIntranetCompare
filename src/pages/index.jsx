@@ -100,7 +100,7 @@ const App = () => {
                     <Button
                       type="dashed"
                       onClick={() => {
-                        add("99");
+                        add();
                       }}
                       style={{
                         width: "60%",
@@ -202,7 +202,7 @@ const App = () => {
                     <Button
                       type="dashed"
                       onClick={() => {
-                        add("45");
+                        add();
                       }}
                       style={{
                         width: "60%",
