@@ -29,7 +29,7 @@ const App = () => {
   const [totalIntranet, setTotalIntranet] = useState(0);
   const [nbCaisse, setNbCaisse] = useState(0);
   const [nbIntranet, setNbIntranet] = useState(0);
-  const inputRef = useRef();
+
   const onFinish = (values, typeForm) => {
     console.log("Received values of form:", values);
     console.log("typeForm", typeForm);
@@ -41,6 +41,7 @@ const App = () => {
       setTotalIntranet(values.names.reduce((a, b) => a + b, 0));
     }
   };
+
   return (
     <div style={{ padding: 100 }}>
       <Row>
@@ -49,6 +50,11 @@ const App = () => {
           <Form
             name="caisseForm"
             {...formItemLayout}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+              }
+            }}
             onFinish={(values) => onFinish(values, "caisseForm")}
             style={{
               maxWidth: 600,
@@ -98,7 +104,6 @@ const App = () => {
                               add();
                             }
                           }}
-                          ref={inputRef}
                         />
                       </Form.Item>
                       {fields.length > 1 ? (
@@ -216,7 +221,6 @@ const App = () => {
                               add();
                             }
                           }}
-                          ref={inputRef}
                         />
                       </Form.Item>
                       {fields.length > 1 ? (
