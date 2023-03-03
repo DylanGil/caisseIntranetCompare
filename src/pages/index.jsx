@@ -156,6 +156,8 @@ const App = () => {
               }
             >
               Total: {totalCaisse} <br></br>
+            </Title>
+            <Title level={2} style={{ marginLeft: "40px" }}>
               Nombre de données: {nbCaisse}
             </Title>
           </Form>
@@ -271,8 +273,10 @@ const App = () => {
                   : "default"
               }
             >
-              Total: {totalIntranet} <br></br>
-              Nombres de données: {nbIntranet}
+              Total: {totalIntranet}
+            </Title>
+            <Title level={2} style={{ marginLeft: "40px" }}>
+              Nombre de données: {nbIntranet}
             </Title>
           </Form>
         </Col>
