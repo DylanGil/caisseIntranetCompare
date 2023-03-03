@@ -1,6 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Row, Col, Typography, Popconfirm } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  Col,
+  Typography,
+  Popconfirm,
+} from "antd";
 
 const { Title } = Typography;
 const formItemLayout = {
@@ -11,24 +20,25 @@ const formItemLayout = {
     },
     sm: {
       span: 20,
-      offset: 4,
+      offset: 3,
     },
   },
 };
 const App = () => {
   const [totalCaisse, setTotalCaisse] = useState(0);
   const [totalIntranet, setTotalIntranet] = useState(0);
+  const [nbCaisse, setNbCaisse] = useState(0);
+  const [nbIntranet, setNbIntranet] = useState(0);
+  const inputRef = useRef();
   const onFinish = (values, typeForm) => {
     console.log("Received values of form:", values);
     console.log("typeForm", typeForm);
     if (typeForm === "caisseForm") {
-      setTotalCaisse(
-        values.names.map((item) => parseInt(item)).reduce((a, b) => a + b, 0)
-      );
+      setNbCaisse(values.names.length);
+      setTotalCaisse(values.names.reduce((a, b) => a + b, 0));
     } else if (typeForm === "intranetForm") {
-      setTotalIntranet(
-        values.names.map((item) => parseInt(item)).reduce((a, b) => a + b, 0)
-      );
+      setNbIntranet(values.names.length);
+      setTotalIntranet(values.names.reduce((a, b) => a + b, 0));
     }
   };
   return (
@@ -70,18 +80,25 @@ const App = () => {
                         rules={[
                           {
                             required: true,
-                            whitespace: true,
                             message:
                               "S'il vous plaît entrer une info ou supprimer ce champ.",
                           },
                         ]}
                         noStyle
                       >
-                        <Input
+                        <InputNumber
                           placeholder="Entrer les données"
                           style={{
                             width: "60%",
+                            textAlignLast: "center",
                           }}
+                          autoFocus={true}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              add();
+                            }
+                          }}
+                          ref={inputRef}
                         />
                       </Form.Item>
                       {fields.length > 1 ? (
@@ -130,9 +147,16 @@ const App = () => {
             <Title
               level={2}
               style={{ marginLeft: "40px" }}
-              type={totalCaisse === totalIntranet ? "success" : "danger"}
+              type={
+                totalCaisse == !0 || totalIntranet !== 0
+                  ? totalCaisse === totalIntranet
+                    ? "success"
+                    : "danger"
+                  : "default"
+              }
             >
-              Total: {totalCaisse}
+              Total: {totalCaisse} <br></br>
+              Nombre de données: {nbCaisse}
             </Title>
           </Form>
         </Col>
@@ -172,18 +196,25 @@ const App = () => {
                         rules={[
                           {
                             required: true,
-                            whitespace: true,
                             message:
                               "S'il vous plaît entrer une info ou supprimer ce champ.",
                           },
                         ]}
                         noStyle
                       >
-                        <Input
+                        <InputNumber
                           placeholder="Entrer les données"
                           style={{
                             width: "60%",
+                            textAlignLast: "center",
                           }}
+                          autoFocus={true}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              add();
+                            }
+                          }}
+                          ref={inputRef}
                         />
                       </Form.Item>
                       {fields.length > 1 ? (
@@ -232,9 +263,16 @@ const App = () => {
             <Title
               level={2}
               style={{ marginLeft: "40px" }}
-              type={totalCaisse === totalIntranet ? "success" : "danger"}
+              type={
+                totalCaisse == !0 || totalIntranet !== 0
+                  ? totalCaisse === totalIntranet
+                    ? "success"
+                    : "danger"
+                  : "default"
+              }
             >
-              Total: {totalIntranet}
+              Total: {totalIntranet} <br></br>
+              Nombres de données: {nbIntranet}
             </Title>
           </Form>
         </Col>

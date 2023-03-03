@@ -1,3 +1,3 @@
-# caisseIntranetCompare v1.0
+# caisseIntranetCompare v1.1
 
 for private use only
