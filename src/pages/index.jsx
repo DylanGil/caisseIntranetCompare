@@ -12,6 +12,7 @@ import {
 } from "antd";
 
 const { Title } = Typography;
+const { Search } = Input;
 const formItemLayout = {
   wrapperCol: {
     xs: {
@@ -99,10 +100,8 @@ const App = () => {
                             textAlignLast: "center",
                           }}
                           autoFocus={true}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              add();
-                            }
+                          onPressEnter={(e) => {
+                            add();
                           }}
                         />
                       </Form.Item>
@@ -134,6 +133,20 @@ const App = () => {
                       Ajouter une info
                     </Button>
                     <Form.ErrorList errors={errors} />
+                  </Form.Item>
+                  <Form.Item>
+                    <Search
+                      placeholder="Combien de données ?"
+                      onSearch={(nb) => {
+                        for (let i = 0; i < nb; i++) {
+                          add();
+                        }
+                      }}
+                      enterButton
+                      style={{
+                        width: "70%",
+                      }}
+                    />
                   </Form.Item>
                 </>
               )}
@@ -216,10 +229,8 @@ const App = () => {
                             textAlignLast: "center",
                           }}
                           autoFocus={true}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              add();
-                            }
+                          onPressEnter={(e) => {
+                            add();
                           }}
                         />
                       </Form.Item>
@@ -236,7 +247,7 @@ const App = () => {
                     </Form.Item>
                   ))}
                   <Form.Item>
-                    <Button
+                    {/* <Button
                       type="dashed"
                       onClick={() => {
                         add();
@@ -249,8 +260,22 @@ const App = () => {
                       icon={<PlusOutlined />}
                     >
                       Ajouter une info
-                    </Button>
+                    </Button> */}
                     <Form.ErrorList errors={errors} />
+                  </Form.Item>
+                  <Form.Item>
+                    <Search
+                      placeholder="Combien de données ?"
+                      onSearch={(nb) => {
+                        for (let i = 0; i < nb; i++) {
+                          add();
+                        }
+                      }}
+                      enterButton
+                      style={{
+                        width: "70%",
+                      }}
+                    />
                   </Form.Item>
                 </>
               )}
