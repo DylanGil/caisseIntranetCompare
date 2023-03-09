@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   Button,
@@ -43,6 +43,10 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    document.getElementsByClassName("ant-btn-dashed")[0].click();
+  }, []);
+
   return (
     <div style={{ padding: 100 }}>
       <Row>
@@ -61,18 +65,7 @@ const App = () => {
               maxWidth: 600,
             }}
           >
-            <Form.List
-              name="names"
-              rules={[
-                {
-                  validator: async (_, names) => {
-                    if (!names || names.length < 2) {
-                      return Promise.reject(new Error("Au moins 2 infos"));
-                    }
-                  },
-                },
-              ]}
-            >
+            <Form.List name="names">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, index) => (
@@ -84,13 +77,6 @@ const App = () => {
                       <Form.Item
                         {...field}
                         validateTrigger={["onChange", "onBlur"]}
-                        rules={[
-                          {
-                            required: true,
-                            message:
-                              "S'il vous plaît entrer une info ou supprimer ce champ.",
-                          },
-                        ]}
                         noStyle
                       >
                         <InputNumber
@@ -133,20 +119,6 @@ const App = () => {
                       Ajouter une info
                     </Button>
                     <Form.ErrorList errors={errors} />
-                  </Form.Item>
-                  <Form.Item>
-                    <Search
-                      placeholder="Combien de données ?"
-                      onSearch={(nb) => {
-                        for (let i = 0; i < nb; i++) {
-                          add();
-                        }
-                      }}
-                      enterButton
-                      style={{
-                        width: "70%",
-                      }}
-                    />
                   </Form.Item>
                 </>
               )}
@@ -246,23 +218,6 @@ const App = () => {
                       ) : null}
                     </Form.Item>
                   ))}
-                  <Form.Item>
-                    {/* <Button
-                      type="dashed"
-                      onClick={() => {
-                        add();
-                      }}
-                      style={{
-                        width: "60%",
-                        marginTop: "20px",
-                        marginRight: "40px",
-                      }}
-                      icon={<PlusOutlined />}
-                    >
-                      Ajouter une info
-                    </Button> */}
-                    <Form.ErrorList errors={errors} />
-                  </Form.Item>
                   <Form.Item>
                     <Search
                       placeholder="Combien de données ?"
